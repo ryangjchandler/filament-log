@@ -7,6 +7,8 @@
 
 This package provides a `Logs` page that allows you to view your Laravel log files in a simple UI.
 
+![](./art/screen.png)
+
 ## Installation
 
 You can install the package via Composer:
