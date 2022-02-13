@@ -3,15 +3,15 @@
 namespace RyanChandler\FilamentLog;
 
 use Closure;
-use Filament\Pages\Page;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\ViewField;
+use Filament\Pages\Page;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Finder\Finder;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\ViewField;
 use Symfony\Component\Finder\SplFileInfo;
 
 class Logs extends Page
