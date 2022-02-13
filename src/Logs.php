@@ -4,7 +4,6 @@ namespace RyanChandler\FilamentLog;
 
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\ViewField;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\File;
@@ -41,7 +40,7 @@ class Logs extends Page
                 ViewField::make('contents')
                     ->disableLabel()
                     ->view('filament-log::contents'),
-            ])
+            ]),
         ];
     }
 
