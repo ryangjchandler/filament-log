@@ -3,6 +3,7 @@
 namespace RyanChandler\FilamentLog;
 
 use Filament\PluginServiceProvider;
+use Spatie\LaravelPackageTools\Package;
 
 class FilamentLogServiceProvider extends PluginServiceProvider
 {
@@ -11,4 +12,9 @@ class FilamentLogServiceProvider extends PluginServiceProvider
     protected array $pages = [
         Logs::class,
     ];
+
+    public function packageConfigured(Package $package): void
+    {
+        $package->hasAssets();
+    }
 }

@@ -5,21 +5,14 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/ryangjchandler/filament-log/Check%20&%20fix%20styling?label=code%20style)](https://github.com/ryangjchandler/filament-log/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/ryangjchandler/filament-log.svg?style=flat-square)](https://packagist.org/packages/ryangjchandler/filament-log)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This package provides a `Logs` page that allows you to view your Laravel log files in a simple UI.
 
 ## Installation
 
-You can install the package via composer:
+You can install the package via Composer:
 
 ```bash
 composer require ryangjchandler/filament-log
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="filament-log-migrations"
-php artisan migrate
 ```
 
 You can publish the config file with:
@@ -38,15 +31,40 @@ This is the contents of the published config file:
 
 ```php
 return [
+
+    'paths' => [
+        storage_path('logs')
+    ],
+
 ];
 ```
 
 ## Usage
 
-```php
-$filament-log = new RyanChandler\FilamentLog();
-echo $filament-log->echoPhrase('Hello, RyanChandler!');
+You should first publish the assets provided by this plugin:
+
+```bash
+php artisan vendor:publish --tag=filament-log-assets
 ```
+
+This will publish the CSS files to `public/vendor/filament-log`.
+
+The `Logs` page will be automatically registed with Filament and appear in your panel.
+
+### Authorization
+
+If you would like to prevent certain users from accessing your page, you should register an authorization callback inside of a `ServiceProvider::boot()` method.
+
+```php
+public function boot()
+{
+    Logs::can(function (User $user) {
+        return $user->role === Role::Admin;
+    });
+}
+```
+
+This will prevent the navigation item and routes from being registered.
 
 ## Testing
 

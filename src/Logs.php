@@ -2,13 +2,18 @@
 
 namespace RyanChandler\FilamentLog;
 
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\ViewField;
+use Closure;
 use Filament\Pages\Page;
+use Filament\Facades\Filament;
+use Filament\Forms\Components\Card;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Finder\Finder;
+use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Route;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\ViewField;
 use Symfony\Component\Finder\SplFileInfo;
 
 class Logs extends Page
@@ -17,9 +22,21 @@ class Logs extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-document';
 
+    protected static ?Closure $can = null;
+
     public $log;
 
     public $contents = 'Empty...';
+
+    public function mount()
+    {
+        abort_unless(static::canAccessPage(), 403);
+    }
+
+    public static function can(Closure $callback): void
+    {
+        static::$can = $callback;
+    }
 
     protected function getFormSchema(): array
     {
@@ -59,6 +76,16 @@ class Logs extends Page
             ->in(config('filament-log.paths'));
     }
 
+    protected static function canAccessPage(): bool
+    {
+        return static::$can && (static::$can)(Auth::user());
+    }
+
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return static::canAccessPage();
+    }
+
     protected function getForms(): array
     {
         return [
@@ -67,5 +94,14 @@ class Logs extends Page
                 ->model($this->getFormModel())
                 ->statePath($this->getFormStatePath()),
         ];
+    }
+
+    public function render(): View
+    {
+        Filament::registerStyles([
+
+        ]);
+
+        return parent::render();
     }
 }
