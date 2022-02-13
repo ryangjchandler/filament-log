@@ -64,7 +64,7 @@ public function boot()
 }
 ```
 
-This will prevent the navigation item and routes from being registered.
+This will prevent the navigation item from being registered.
 
 ## Testing
 
