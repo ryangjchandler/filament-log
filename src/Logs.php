@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Finder\Finder;
 use Filament\Forms\Components\Select;
-use Illuminate\Support\Facades\Route;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\ViewField;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -58,7 +56,7 @@ class Logs extends Page
                 ViewField::make('contents')
                     ->disableLabel()
                     ->view('filament-log::contents'),
-            ])
+            ]),
         ];
     }
 
